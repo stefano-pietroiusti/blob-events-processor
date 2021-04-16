@@ -1,0 +1,23 @@
+{
+  "566|serverless-azure-functions>request>hawk>boom>hoek": {
+    "ignore": 1
+  },
+  "566|serverless-azure-functions>request>hawk>cryptiles>boom>hoek": {
+    "ignore": 1
+  },
+  "566|serverless-azure-functions>request>hawk>hoek": {
+    "ignore": 1
+  },
+  "566|serverless-azure-functions>request>hawk>sntp>hoek": {
+    "ignore": 1
+  },
+  "548|serverless-azure-functions>jsonpath>static-eval": {
+    "ignore": 1
+  },
+  "310|serverless-azure-functions>az-login>copy-paste>sync-exec": {
+    "ignore": 1
+  },
+  "717|npm-audit-resolver>spawn-shell>merge-options": {
+    "ignore": 1
+  }
+}

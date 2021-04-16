@@ -1,0 +1,13 @@
+{
+  "version": "2.0",
+  "functionTimeout": "00:10:00",
+  "extensions": {
+    "queues": {
+      "maxPollingInterval": "00:01:00",
+      "batchSize": 32,
+      "maxDequeueCount": 2,
+      "newBatchThreshold": 8
+    }
+  },
+  "watchDirectories": [ "domain", "exceptions", "gateways", "handlers", "utils", "node_modules" ]
+}

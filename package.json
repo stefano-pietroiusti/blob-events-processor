@@ -1,0 +1,74 @@
+{
+  "name": "blob-events-processor",
+  "version": "1.0.0",
+  "description": "Process events files that land in blob storage",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "audit:resolve": "resolve-audit --ignoreLow",
+    "audit:check": "check-audit",
+    "test": "npm run test:unit && npm run test:integration && npm run test:component",
+    "test:unit": "cross-env stage=dev mocha \"./src/**/*spec.js\" --timeout 15000 --require './test/testUnitHelper'",
+    "test:unit:coverage": "cross-env stage=dev nyc mocha \"./src/**/*spec.js\" --timeout 15000",
+    "test:unit:report": "cross-env stage=dev mocha \"./src/**/*spec.js\" --timeout 15000 --reporter mocha-junit-reporter --reporter-options testCaseSwitchClassnameAndName=true,mochaFile=./test-reports/unit.xml",
+    "test:component": "cross-env stage=dev mocha \"./test/component/**/*spec.js\" --timeout 30000",
+    "test:component:report": "cross-env stage=dev mocha \"./test/component/**/*spec.js\" --timeout 30000 --reporter mocha-junit-reporter --reporter-options testCaseSwitchClassnameAndName=true,mochaFile=./test-reports/component.xml",
+    "test:integration": "cross-env stage=dev mocha \"./test/integration/*spec.js\" --timeout 30000 --require './test/testIntegrationHelper'",
+    "test:integration:report": "cross-env stage=dev mocha \"./test/integration/*spec.js\" --timeout 30000 --reporter mocha-junit-reporter --reporter-options testCaseSwitchClassnameAndName=true,mochaFile=./test-reports/integration.xml",
+    "precommit": "npm run lint && npm run test",
+    "bootstrap": "aws s3 cp s3://accordo.envs/blob-events-processor.env .",
+    "bootstrap:update": "aws s3 cp ./blob-events-processor.env s3://accordo.envs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/accordogroup/blob-events-processor.git"
+  },
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/accordogroup/blob-events-processor#readme",
+  "dependencies": {
+    "@accordo-feed/webapi-helper": "git+ssh://git@bitbucket.org/accordogroup/webapi-helper.git#5.0.2",
+    "@azure/cosmos": "2.0.2",
+    "azure-keyvault": "3.0.4",
+    "azure-storage": "2.10.2",
+    "documentdb-q-promises": "1.6.0",
+    "env2": "2.2.2",
+    "joi": "14.0.0",
+    "le_node": "1.8.0",
+    "moment": "2.24.0",
+    "ms-rest-azure": "2.5.9",
+    "mssql": "4.3.0",
+    "node-gzip": "1.1.2",
+    "ramda": "0.25.0",
+    "request-promise-native": "1.0.5",
+    "ssm-helper": "git+ssh://git@bitbucket.org/accordogroup/ssm-helper.git#build-29",
+    "streamifier": "0.1.1",
+    "uuid": "3.3.2"
+  },
+  "devDependencies": {
+    "chai": "4.2.0",
+    "cross-env": "5.2.0",
+    "cucumber": "4.2.1",
+    "cucumberjs-junitxml": "1.0.0",
+    "eslint": "5.7.0",
+    "eslint-config-airbnb": "17.1.0",
+    "eslint-plugin-cucumber": "1.2.0",
+    "eslint-plugin-import": "2.14.0",
+    "husky": "1.1.2",
+    "jsonwebtoken": "8.3.0",
+    "mocha": "5.2.0",
+    "mocha-junit-reporter": "1.18.0",
+    "npm-audit-resolver": "1.3.3",
+    "nyc": "13.3.0",
+    "sinon": "7.0.0"
+  },
+  "engines": {
+    "node": "8.11.1"
+  },
+  "distIncludes": [
+    "./src",
+    "./bin",
+    "./node_modules",
+    "./package.json"
+  ]
+}

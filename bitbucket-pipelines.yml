@@ -1,0 +1,103 @@
+image: accordo/serverless:node8
+
+pipelines:
+  default:
+    - step:
+        name: PR build
+        caches:
+          - node
+        script:
+          - npm install
+          - npm run audit:check
+          - npm run test:unit:coverage
+          - npm run test:unit:report
+          # - npm run test:integration:report
+          # - npm run test:component:report
+  branches:
+    master:
+      - step:
+          name: Lint, Coverage, Unit, Integration Test, Component Test
+          caches:
+            - node
+          script:
+            - npm install
+            - npm run audit:check
+            - npm run test:unit:coverage
+            - npm run test:unit:report
+            # - npm run test:integration:report
+            # - npm run test:component:report
+      - step:
+          name: Deploy master to dev
+          deployment: test
+          caches:
+            - node-deployment
+          script:
+            - bash ./scripts/deploy.sh dev blob-events-processor devlicketysplit
+      - step:
+          name: Run health check on dev
+          caches:
+            - node
+          script:
+            - echo "IMPLEMENT HEALTH CHECK!"
+      - step:
+          name: Deploy master to uat
+          deployment: staging
+          trigger: manual
+          caches:
+            - node-deployment
+          script:
+            - bash ./scripts/deploy.sh uat blob-events-processor uatlicketysplit
+      - step:
+          name: Run health check on uat
+          caches:
+            - node
+          script:
+            - echo "IMPLEMENT HEALTH CHECK!"
+      - step:
+          name: Deploy master to prod
+          deployment: production
+          trigger: manual
+          caches:
+            - node-deployment
+          script:
+            - bash ./scripts/deploy.sh prod blob-events-processor proddevlicketysplit
+      - step:
+          name: Run health check on prod
+          caches:
+            - node
+          script:
+            - echo "IMPLEMENT HEALTH CHECK! - sure buddy. whatever you say."
+
+  custom:
+    deploy-to-dev:
+      - step:
+          name: Deploy feature branch to dev
+          caches:
+            - node
+            - node-deployment
+          script:
+            - npm install
+            - npm run audit:check
+            - npm run test:unit:coverage
+            - npm run test:unit:report
+            # - npm run test:integration:report
+            # - npm run test:component:report
+            - bash ./scripts/deploy.sh dev blob-events-processor devlicketysplit
+    deploy-to-prod:
+      - step:
+          name: Deploy feature branch to prod
+          caches:
+            - node
+            - node-deployment
+          script:
+            - npm install
+            - npm run audit:check
+            - npm run test:unit:coverage
+            - npm run test:unit:report
+            # - npm run test:integration:report
+            # - npm run test:component:report
+            - bash ./scripts/deploy.sh prod blob-events-processor proddevlicketysplit            
+
+definitions:
+  caches:
+    node-deployment: ~/deployments/node_modules 

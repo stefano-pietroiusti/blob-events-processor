@@ -1,0 +1,6 @@
+{
+  "stage": "stage",
+  "storageServiceConnection": "storageServiceConnection",
+  "sqlConnection": "sqlConnection",
+  "logEntriesToken": "logEntriesToken"
+}
